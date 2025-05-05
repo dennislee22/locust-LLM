@@ -32,5 +32,7 @@ The young people
 206. in the hands of the next generation of data scient
 ```
 
+<img width="796" alt="image" src="https://github.com/user-attachments/assets/bef664fd-eec1-413a-9942-cebba7f18484" />
+
 <img width="1460" alt="image" src="https://github.com/user-attachments/assets/750ae667-b781-4063-a5ac-6a8d1104cc27" />
 
