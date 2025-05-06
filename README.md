@@ -98,3 +98,12 @@ The future of AI is bright, but it will take a lot of work to get there. AI is a
 43. not a single technology but a combination of many
 AI is no longer just about computers that can think like humans. The future of AI is a combination of many technologies, including machine learning, natural language processing, and computer vision.
 ```
+
+<img width="1461" alt="image" src="https://github.com/user-attachments/assets/7e27aecd-b800-462e-a216-16c52539913a" />
+
+```
+torch.OutOfMemoryError: CUDA out of memory
+```
+
+
+
