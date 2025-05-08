@@ -128,7 +128,7 @@ AI is no longer just about computers that can think like humans. The future of A
 ## KV Cache
 - KV cache can help to increase tps as it accelerates token-by-token generation when you’re generating a long output.
 - Reference: `app_infer-kvcache.py` script. In this case, Run Locust test again after running FASTAPI script with `use_cache=True`. `use_cache=False` recomputes every token from scratch each time. `kv_cache` is a Python dictionary storing everything indefinitely.
-⚠️ When using KV cache manually, GPU memory usage grows quickly because it stores the full attention history (past_key_values) for every unique cache_key. No limit or cleanup means GPU RAM just keeps filling up. As a result, `torch.OutOfMemoryError: CUDA out of memory` would happen in the event of filling up GPU RAM.
+- ⚠️ When using KV cache manually, GPU memory usage grows quickly because it stores the full attention history (past_key_values) for every unique cache_key. No limit or cleanup means GPU RAM just keeps filling up. As a result, `torch.OutOfMemoryError: CUDA out of memory` would happen in the event of filling up GPU RAM.
 
 ![kv-cache-oom](https://github.com/user-attachments/assets/68f9078c-17ae-434c-aae0-5e9e526921c8)
 
