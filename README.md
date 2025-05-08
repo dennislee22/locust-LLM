@@ -1,11 +1,39 @@
 # Locust -> LLM
+<img width="259" alt="image" src="https://github.com/user-attachments/assets/9de4642e-ffc6-42fb-a631-9a1edf0325fe" />
+
+This article describes the performance of a LLM model serving end-users' chat requests with different settings such as number of tokens, and response lengths, using Locust as the stress testing tool. Locust enables simulation of user traffic by generating concurrent requests to the model's API, allowing us to observe how the system behaves under varying loads. 
+
+## LLM Setup
+- Download the Llama-2-7B model from the HF site.
+- Install the necessary Python libraries.
+```
+pip install transformers pydantic nvitop fastapi torch
+```
+- Create the inference script `app_infer.py`
+- Run the inference script by selecting 2vCPU, 64GB with 1 GPU profile.
+<img width="467" alt="image" src="https://github.com/user-attachments/assets/534274ab-665d-493b-a643-8280334750e1" />
+<img width="796" alt="image" src="https://github.com/user-attachments/assets/bef664fd-eec1-413a-9942-cebba7f18484" />
+
+## Client Setup
+
+- Install Locust library
+```
+pip install locust
+```
+
+## Run Locust
+
+1. Prepare `locustfile.py` file, configure `max_new_tokens = 10`.
+2. Run Locust with parameters `--headless -u 10 --spawn-rate 10 --run-time 1m` targeting the LLM with 10 virtual users for 1 minute, using a single LLaMA-2-7B model deployed on a GPU with 40GB of memory. 
 
 ```
 # locust --headless -u 10 --spawn-rate 10 --run-time 1m -f locustfile.py -H https://llama2-chat.cml.apps.company.com
 ```
 
-- Edit `locustfile.py` to configure max_new_tokens to 10. Run the locust command.
+3. Monitor the nvitop output in the hosting node.
+<img width="1460" alt="image" src="https://github.com/user-attachments/assets/750ae667-b781-4063-a5ac-6a8d1104cc27" />
 
+4. Capture the output upon successful completion of the Locust command.
 ```
 Type     Name                                                     # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
 --------|-------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
@@ -21,6 +49,7 @@ POST     /generate/                                                      2400   
          Aggregated                                                      2400   2500   2500   2600   2700   4700   5300   5500   6100   6100   6100    206
 ```
 
+5. Check the generated LLM output in the file.
 ```
 $ tail -f locust_output.txt 
 
@@ -34,12 +63,7 @@ The young people
 206. in the hands of the next generation of data scient
 ```
 
-<img width="796" alt="image" src="https://github.com/user-attachments/assets/bef664fd-eec1-413a-9942-cebba7f18484" />
-
-<img width="1460" alt="image" src="https://github.com/user-attachments/assets/750ae667-b781-4063-a5ac-6a8d1104cc27" />
-
-
-- Edit `locustfile.py` to configure max_new_tokens to 20. Run the locust command.
+6. Configure `locustfile.py` with `max_new_tokens = 10` parameter. Repeat step 2. 
 
 ```
 Type     Name                                                     # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
@@ -98,6 +122,16 @@ The future of AI is bright, but it will take a lot of work to get there. AI is a
 43. not a single technology but a combination of many
 AI is no longer just about computers that can think like humans. The future of AI is a combination of many technologies, including machine learning, natural language processing, and computer vision.
 ```
+
+- KV cache accelerates token-by-token generation when you’re generating a long output, not just repeating short prompt completion.
+⚠️ When using KV cache manually (like in the FastAPI script we just implemented), GPU memory usage grows quickly because you're storing the full attention history (past_key_values) for every unique cache_key. No limit or cleanup means GPU RAM just keeps filling up.
+
+- ✅ Run your Locust test again with:
+
+    use_cache=True
+    use_cache=False → recomputes every token from scratch each time
+
+kv_cache is a Python dictionary storing everything indefinitely.
 
 ![kv-cache-oom](https://github.com/user-attachments/assets/68f9078c-17ae-434c-aae0-5e9e526921c8)
 
