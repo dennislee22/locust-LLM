@@ -12,7 +12,6 @@ pip install transformers pydantic nvitop fastapi torch
 - Create the inference script `app_infer.py`
 - Run the inference script by selecting 2vCPU, 64GB with 1 GPU profile.
 <img width="467" alt="image" src="https://github.com/user-attachments/assets/534274ab-665d-493b-a643-8280334750e1" />
-<img width="796" alt="image" src="https://github.com/user-attachments/assets/bef664fd-eec1-413a-9942-cebba7f18484" />
 
 ## Client Setup
 
@@ -63,7 +62,7 @@ The young people
 206. in the hands of the next generation of data scient
 ```
 
-6. Configure `locustfile.py` with `max_new_tokens = 10` parameter. Repeat step 2. 
+6. Configure `locustfile.py` with `max_new_tokens = 20` parameter. Repeat step 2 to 5. 
 
 ```
 Type     Name                                                     # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
@@ -93,7 +92,7 @@ The future of A
 The future of AI is in the hands of the people.
 ```
 
-- Edit `locustfile.py` to configure max_new_tokens to 50. Run the locust command.
+7. Configure `locustfile.py` with `max_new_tokens = 50` parameter. Repeat step 2 to 5. 
 
 ```
 Type     Name                                                     # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
@@ -123,21 +122,14 @@ The future of AI is bright, but it will take a lot of work to get there. AI is a
 AI is no longer just about computers that can think like humans. The future of AI is a combination of many technologies, including machine learning, natural language processing, and computer vision.
 ```
 
-- KV cache accelerates token-by-token generation when you’re generating a long output, not just repeating short prompt completion.
-⚠️ When using KV cache manually (like in the FastAPI script we just implemented), GPU memory usage grows quickly because you're storing the full attention history (past_key_values) for every unique cache_key. No limit or cleanup means GPU RAM just keeps filling up.
+## Conclusion:
+✅ Increasing the value of max_new_tokens results in lower transactions per second (tps). This suggests that longer text generation per request reduces overall throughput, due to increased computation time per request using 1 GPU.
 
-- ✅ Run your Locust test again with:
-
-    use_cache=True
-    use_cache=False → recomputes every token from scratch each time
-
-kv_cache is a Python dictionary storing everything indefinitely.
+## KV Cache
+- KV cache can help to increase tps as it accelerates token-by-token generation when you’re generating a long output.
+- Reference: `app_infer-kvcache.py` script. In this case, Run Locust test again after running FASTAPI script with `use_cache=True`. `use_cache=False` recomputes every token from scratch each time. `kv_cache` is a Python dictionary storing everything indefinitely.
+⚠️ When using KV cache manually, GPU memory usage grows quickly because it stores the full attention history (past_key_values) for every unique cache_key. No limit or cleanup means GPU RAM just keeps filling up. As a result, `torch.OutOfMemoryError: CUDA out of memory` would happen in the event of filling up GPU RAM.
 
 ![kv-cache-oom](https://github.com/user-attachments/assets/68f9078c-17ae-434c-aae0-5e9e526921c8)
-
-```
-torch.OutOfMemoryError: CUDA out of memory
-```
-
 
 
