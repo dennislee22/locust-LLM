@@ -9,13 +9,13 @@ This article describes the performance of a LLM model serving end-users' chat re
 ```
 pip install transformers pydantic nvitop fastapi torch
 ```
-- Create the inference script `llm-inference.py`
+- Create the inference script `llm-inference.py`.
 - Run the inference script by selecting 2vCPU, 64GB with 1 GPU profile.
 <img width="467" alt="image" src="https://github.com/user-attachments/assets/534274ab-665d-493b-a643-8280334750e1" />
 
 ## Client Setup
 
-- Install Locust library
+- Install Locust library.
 ```
 pip install locust
 ```
