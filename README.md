@@ -23,10 +23,10 @@ pip install locust
 ## Run Locust
 
 1. Prepare `locustfile.py` file, configure `max_new_tokens = 10`.
-2. Run Locust with parameters `--headless -u 10 --spawn-rate 10 --run-time 1m` targeting the LLM with 10 virtual users for 1 minute, using a single LLaMA-2-7B model deployed on a GPU with 40GB of memory. 
+2. Run Locust with parameters `--headless -u 10 --spawn-rate 10 --run-time 1m` targeting the FASTAPI/locally hosted LLM with 10 virtual users for 1 minute, using a single LLaMA-2-7B model deployed on a GPU with 40GB of memory. 
 
 ```
-# locust --headless -u 10 --spawn-rate 10 --run-time 1m -f locustfile.py -H https://llama2-chat.cml.apps.company.com
+locust --headless -u 10 --spawn-rate 10 --run-time 1m -f locustfile.py -H https://llama2-chat.cml.apps.company.com
 ```
 
 3. Monitor the `nvitop` output in the hosting node.
