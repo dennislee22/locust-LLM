@@ -126,9 +126,10 @@ AI is no longer just about computers that can think like humans. The future of A
 ✅ Increasing the value of max_new_tokens results in lower transactions per second (tps). This suggests that longer text generation per request reduces overall throughput, due to increased computation time per request using 1 GPU.
 
 ## KV Cache
-- KV cache can help to increase tps as it accelerates token-by-token generation when you’re generating a long output.
-- Reference: `app_infer-kvcache.py` script. In this case, Run Locust test again after running FASTAPI script with `use_cache=True`. `use_cache=False` recomputes every token from scratch each time. `kv_cache` is a Python dictionary storing everything indefinitely.
-- ⚠️ When using KV cache manually, GPU memory usage grows quickly because it stores the full attention history (past_key_values) for every unique cache_key. No limit or cleanup means GPU RAM just keeps filling up. As a result, `torch.OutOfMemoryError: CUDA out of memory` would happen in the event of filling up GPU RAM.
+- KV cache (key-value cache) can help to optimize inference by reusing key-value states from previous tokens, especially in autoregressive generation tasks (where you generate one token at a time) could help to increase tps as it accelerates token-by-token generation when you’re generating a long output. This significantly improves the speed and efficiency of generating long sequences of text since it avoids recomputing the key-value states for every new token in the sequence. In the context of HF Transformers, KV cache can be enabled by using the `use_cache=True` flag when calling the model for generation.
+- Reference: `app_infer-kvcache.py`. Running application with FASTAPI script using `use_cache=True` parameter enables KV cache. `kv_cache` is a Python dictionary storing everything indefinitely. In contrast, `use_cache=False` recomputes every token from scratch each time.
+- Run Locust test again - this time with `locust_conversation.py`. This script is designed to  
+- ⚠️ When using KV cache manually, GPU memory usage grows quickly because it stores the full attention history (past_key_values) for every unique cache_key. No limit or cleanup means GPU RAM just keeps filling up. As a result, `torch.OutOfMemoryError: CUDA out of memory` will occur.
 
 ![kv-cache-oom](https://github.com/user-attachments/assets/68f9078c-17ae-434c-aae0-5e9e526921c8)
 
