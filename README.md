@@ -29,7 +29,7 @@ pip install locust
 # locust --headless -u 10 --spawn-rate 10 --run-time 1m -f locustfile.py -H https://llama2-chat.cml.apps.company.com
 ```
 
-3. Monitor the nvitop output in the hosting node.
+3. Monitor the `nvitop` output in the hosting node.
 <img width="1460" alt="image" src="https://github.com/user-attachments/assets/750ae667-b781-4063-a5ac-6a8d1104cc27" />
 
 4. Capture the output upon successful completion of the Locust command.
