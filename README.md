@@ -99,7 +99,7 @@ The future of AI is bright, but it will take a lot of work to get there. AI is a
 AI is no longer just about computers that can think like humans. The future of AI is a combination of many technologies, including machine learning, natural language processing, and computer vision.
 ```
 
-<img width="1461" alt="image" src="https://github.com/user-attachments/assets/7e27aecd-b800-462e-a216-16c52539913a" />
+![kv-cache-oom](https://github.com/user-attachments/assets/68f9078c-17ae-434c-aae0-5e9e526921c8)
 
 ```
 torch.OutOfMemoryError: CUDA out of memory
