@@ -127,8 +127,8 @@ AI is no longer just about computers that can think like humans. The future of A
 
 ## KV Cache
 - KV cache (key-value cache) can help to optimize inference by reusing key-value states from previous tokens, especially in autoregressive generation tasks (where you generate one token at a time). This could help to increase tps as it accelerates token-by-token generation when you’re generating a long output. This significantly improves the speed and efficiency of generating long sequences of text since it avoids recomputing the key-value states for every new token in the sequence. In the context of HF Transformers, KV cache can be enabled by using the `use_cache=True` flag when calling the model for generation.
-- Reference: `llm-kvcache.py`. Running application with FASTAPI script using `use_cache=True` parameter enables KV cache. `kv_cache` is a Python dictionary storing everything indefinitely. In contrast, `use_cache=False` recomputes every token from scratch each time.
-- Run Locust test again, this time with `locustfile-5prompts.py`. This script is designed to simulate 5 prompts per user session, each user continues from the previous prompt. 
+- To simulate KV cache activation, run LLM application with `llm-kvcache.py` script using `use_cache=True` parameter enables KV cache. `kv_cache` is a Python dictionary storing everything indefinitely. In contrast, `use_cache=False` recomputes every token from scratch each time.
+- Run Locust test again, this time with `locustfile-5prompts.py`. This script simulates 5 prompts per user session, each user continues from the previous prompt. 
 - ⚠️ When using KV cache manually, GPU memory usage grows quickly because it stores the full attention history (past_key_values) for every unique cache_key. No limit or cleanup means GPU RAM just keeps filling up. As a result, `torch.OutOfMemoryError: CUDA out of memory` will occur.
 
 ![kv-cache-oom](https://github.com/user-attachments/assets/68f9078c-17ae-434c-aae0-5e9e526921c8)
