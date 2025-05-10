@@ -4,13 +4,13 @@
 This article describes the performance of a LLM model serving end-users' chat requests with different settings such as number of tokens, and response lengths, using Locust as the stress testing tool. Locust enables simulation of user traffic by generating concurrent requests to the model's API, allowing us to observe how the system behaves under varying loads. 
 
 ## LLM Setup
-- Download the Llama-2-7B model from the HF site.
+- Download Llama-2-7B model from the HF site.
 - Install the necessary Python libraries.
 ```
 pip install transformers ipywidgets nvitop fastapi torch uvicorn
 ```
 - Create the inference script `llm-inference.py`.
-- Run the inference script by selecting 2vCPU, 64GB with 1 GPU profile.
+- Run an inference script by selecting 2vCPU, 64GB with 1 GPU profile.
 <img width="467" alt="image" src="https://github.com/user-attachments/assets/534274ab-665d-493b-a643-8280334750e1" />
 
 ## Client Setup
