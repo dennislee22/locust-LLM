@@ -12,6 +12,7 @@ pip install transformers ipywidgets nvitop fastapi torch uvicorn
 - Create the inference script `llm-inference.py`.
 - Run the inference script by selecting 2vCPU, 64GB with 1 GPU profile.
 <img width="463" alt="image" src="https://github.com/user-attachments/assets/73b391df-b661-488e-8523-b231ad78a787" />
+<img width="1442" alt="image" src="https://github.com/user-attachments/assets/f7f9f607-35bb-4ae2-948a-99a79896f1ac" />
 
 - Test querying the LLM API using the following command.
 ```
