@@ -11,7 +11,19 @@ pip install transformers ipywidgets nvitop fastapi torch uvicorn
 ```
 - Create the inference script `llm-inference.py`.
 - Run the inference script by selecting 2vCPU, 64GB with 1 GPU profile.
-<img width="467" alt="image" src="https://github.com/user-attachments/assets/534274ab-665d-493b-a643-8280334750e1" />
+<img width="463" alt="image" src="https://github.com/user-attachments/assets/73b391df-b661-488e-8523-b231ad78a787" />
+
+- Test querying the LLM API using the following command.
+```
+curl -X POST https://llama2-chat.cml.apps.company.com/generate/ \
+>   -H "Content-Type: application/json" \
+>   -d '{
+>     "prompt": "Once upon a time,",
+>     "max_new_tokens": 20,
+>     "temperature": 0.7
+>   }'
+{"generated_text":"Once upon a time, there was a little girl who loved to read. She loved to read so much that she would read"}
+```
 
 ## Client Setup
 
