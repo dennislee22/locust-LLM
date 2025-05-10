@@ -26,7 +26,7 @@ curl -X POST https://llama2-chat.cml.apps.company.com/generate/ \
 {"generated_text":"Once upon a time, there was a little girl who loved to read. She loved to read so much that she would read"}
 ```
 
-## Client Setup
+## Locust Setup
 
 - Install Locust library.
 ```
