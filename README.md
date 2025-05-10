@@ -7,7 +7,7 @@ This article describes the performance of a LLM model serving end-users' chat re
 - Download the Llama-2-7B model from the HF site.
 - Install the necessary Python libraries.
 ```
-pip install transformers pydantic nvitop fastapi torch
+pip install transformers ipywidgets nvitop fastapi torch
 ```
 - Create the inference script `llm-inference.py`.
 - Run the inference script by selecting 2vCPU, 64GB with 1 GPU profile.
