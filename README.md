@@ -147,3 +147,40 @@ AI is no longer just about computers that can think like humans. The future of A
 ![kv-cache-oom](https://github.com/user-attachments/assets/68f9078c-17ae-434c-aae0-5e9e526921c8)
 
 
+## vLLM
+- Using vLLM as the inference engine allows more requests to be processed. Repeating the same Locust test with parameters `--headless -u 10 --spawn-rate 10 --run-time 1m` produces the following results with higher tps. The expense is that `Llama-2-7b-hf` model consumes 89.5% GRAM of Nvidia `A100-PCIE-40GB` GPU when loaded using vLLM.
+```
+Type     Name                                                     # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+--------|-------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+POST     /v1/completions                                             876     0(0.00%) |    360     136   14481    150 |   14.41        0.00
+--------|-------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+         Aggregated                                                  876     0(0.00%) |    360     136   14481    150 |   14.41        0.00
+
+Response time percentiles (approximated)
+Type     Name                                                             50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+--------|-----------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+POST     /v1/completions                                                  150    150    150    150    160    300   2800  14000  14000  14000  14000    876
+--------|-----------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+         Aggregated                                                       150    150    150    150    160    300   2800  14000  14000  14000  14000    876
+```
+
+- LLM output log:
+```
+873. here. The future of AI is now.
+   [Processed Duration: 0.145 seconds]
+
+874. not a question of if, but when.
+   [Processed Duration: 1.683 seconds]
+
+875. here and it’s going to change everything.
+   [Processed Duration: 1.782 seconds]
+
+876. in the hands of the people
+The future of
+   [Processed Duration: 1.804 seconds]
+
+
+=== Total Duration: 60.792 seconds ===
+```
+
+<img width="1458" alt="image" src="https://github.com/user-attachments/assets/82795ed3-a855-47fd-8e3c-10371a2ccd7b" />
