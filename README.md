@@ -184,3 +184,11 @@ The future of
 ```
 
 <img width="1458" alt="image" src="https://github.com/user-attachments/assets/82795ed3-a855-47fd-8e3c-10371a2ccd7b" />
+
+## Locust -> 2 Physical/DC AI sites
+
+To simulate realistic load on a load balancer (LB) distributing traffic between two physically separate backend sites hosting large language models (LLMs), Locust can be used as an efficient load generation tool. By defining custom user behavior in Locust, HTTP requests (e.g., POST requests with prompt data) can be crafted to target the LB endpoint. The LB is configured to route incoming traffic across the two backend sites, each hosting an instance of the LLM.
+
+![locust-2sites](https://github.com/user-attachments/assets/abf287a9-4282-4857-a5d8-4162593031f9)
+
+
