@@ -1,5 +1,5 @@
 # Locust -> LLM
-<img width="259" alt="image" src="https://github.com/user-attachments/assets/9de4642e-ffc6-42fb-a631-9a1edf0325fe" />
+<img width="400" alt="image" src="https://github.com/user-attachments/assets/9de4642e-ffc6-42fb-a631-9a1edf0325fe" />
 
 This article describes the performance of a LLM model serving end-users' chat requests with different settings such as number of tokens, and response lengths, using Locust as the stress testing tool. Locust enables simulation of user traffic by generating concurrent requests to the model's API, allowing us to observe how the system behaves under varying loads. 
 
